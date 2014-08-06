@@ -1,0 +1,58 @@
+﻿@using Roadkill.Core.Database
+@model TemplateViewModel
+@{
+    ViewBag.Title = SiteStrings.EditTemplate_Title;
+    ViewData["TemplateManagerActive"] = true;
+}
+
+@Html.SiteSettingsNavigation()
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        var editPage = new Roadkill.Web.EditTemplate();
+    });
+</script>
+
+<div id="editpage" class="row">
+    <div id="editpage-form-container" class="col-lg-6">
+        @Html.BootstrapValidationSummary(SiteStrings.EditPage_Error)
+
+        <form class="form-horizontal" role="form" method="post" id="editpage-form">
+            
+            <div class="form-group">
+                <div class="col-sm-12">
+                    @(Html.BootstrapTextBoxFor<TemplateViewModel, string>(p => p.Name, SiteStrings.EditPage_Title_Label, false, 1))
+                </div>
+            </div>
+
+            @Html.Partial("WysiwgToolbar")
+            
+            @(Html.TextAreaFor<TemplateViewModel, string>(p => p.Content, new { @class = "form-control", tabindex = 5 }))
+
+            <div id="editpage-button-container" class="row">
+                <div class="col-sm-1">
+                    <h6>@Html.ActionLink(SiteStrings.Button_Cancel, "Index", "TemplateManager")</h6> 
+                </div>
+
+                <div id="editpage-save-button" class="col-sm-11">
+                    <input type="submit" class="btn btn-primary saveButton" value="@SiteStrings.Button_Save" tabindex="6" />
+                </div>
+            </div>
+
+            @Html.DialogPartial("ChooseImage")
+            @Html.DialogPartial("MarkupHelp")
+        </form>
+    </div>
+
+    <!-- Preview panel -->
+    <div class="col-lg-6" id="previewpanel-container">
+        <div id="previewpanel-inner" class="panel panel-default">
+            <div id="preview-heading" class="panel-heading">@SiteStrings.EditPage_Preview</div>
+            <div class="panel-body" id="preview-wrapper">
+                <div id="previewLoading" class="hide"><img src="@(Url.Content("~/Assets/Images/white-loading.gif"))" border="0" alt="loading" /></div>
+                <div id="preview"><br class="clear" /></div>
+            </div>
+        </div>
+    </div>
+</div>

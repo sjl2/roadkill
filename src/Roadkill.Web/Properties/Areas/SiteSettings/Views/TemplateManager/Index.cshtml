@@ -1,0 +1,41 @@
+﻿@model IList<IEnumerable<TemplateViewModel>>
+@{ 
+	ViewBag.Title = "Template Manager";
+}
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		// Delete button confirmations
+		Roadkill.Web.Setup.bindConfirmDelete();
+	});
+</script>
+
+@Html.SiteSettingsNavigation()
+
+<div id="manage-templates">
+	<p>
+		<a href="@Url.Action("Add", "TemplateManager")" class="btn btn-primary btn-success">
+			@SiteStrings.SiteSettings_UserManagement_NewAdmin
+		</a>
+	</p>
+	<table class="table table-striped" id="template-table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>ID</th>
+				<th colspan="2"></th>
+			</tr>
+		</thead>
+	@foreach (TemplateViewModel template in Model)
+	{
+		<tr>
+			<td style="width:30%;">@template.Name</td>
+			<td class="stretch">@template.Id</td>
+			<td class="edit">@Html.ActionLink(SiteStrings.Navigation_Edit, "Edit", new { id = template.Id }, new { @class = "btn btn-primary btn-mini" })</td>
+		    <td class="delete">@Html.ActionLink(SiteStrings.Navigation_Delete, "Delete", new { id = template.Id }, new { @class = "confirm btn btn-danger btn-mini" })</td>
+		</tr>
+	}
+	</table>
+	<br class="clear" />
+
+</div>

@@ -1,0 +1,14 @@
+﻿@model TemplateViewModel
+@{
+    ViewBag.Title = "Choose Template";
+}
+
+<h1>Templates</h1>
+<p>Choose a template for your new page.</p>
+<form class="form-horizontal" role="form" method="post" id="editpage-form">
+    <!--Html.BootstrapDropDownListFor(m => m.Id, ViewBag.Templates, "Help")-->
+    @(Html.DropDownList("Templates"))
+    <div id="editpage-save-button" class="col-sm-11">
+        <input type="submit" class="btn btn-primary saveButton" value="Submit" tabindex="6" />
+    </div>
+</form>
